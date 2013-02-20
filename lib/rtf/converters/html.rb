@@ -74,12 +74,6 @@ module RTF::Converters
           when :h6
             style.font_size = 12
             style.bold = true
-          when :h5
-            style.font_size = 16
-            style.bold = true
-          when :h6
-            style.font_size = 12
-            style.bold = true
           end
         end
       end
