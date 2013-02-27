@@ -109,7 +109,7 @@ module RTF::Converters
         when 'a'                      then rtf.link @node[:href],  &recurse
         when 'h1', 'h2', 'h3', 'h4'   then rtf.apply(Helpers.style(@node.name), &recurse); rtf.line_break
         when 'code'                   then rtf.font Helpers.font(:monospace), &recurse
-        when 'table'                  then rtf.table @node.children.count, @node.children.max.children.select {|x| x.name == 'td' }.count, &recurse
+        when 'table'                  then generate_table(rtf, @node)
         when 'tr'                     then rtf.tr &recurse
         when 'td'                     then rtf.td &recurse
         when 'img'                    then rtf.image @node.attributes.fetch("src").value, &recurse
@@ -118,6 +118,13 @@ module RTF::Converters
         end
 
         return rtf
+      end
+
+      def generate_table(rtf, node)
+        rows  = cells = 0
+        rows  = node.children.count if node.children
+        cells = node.children.max.children.select { |el| el.name == 'td' }.count if node.children.max
+        rtf.table rows, cells, &recurse
       end
 
       def recurse

@@ -27,6 +27,7 @@ class HTMLConverterTest < Test::Unit::TestCase
             <td>Hi</td><td>Hello</td><td><strong>HI</strong></td>
           </tr>
         </table>
+
       </body>
     </html>
     HTML
@@ -37,7 +38,13 @@ class HTMLConverterTest < Test::Unit::TestCase
     assert(response.match(/{\\b\\fs44\nHi\n}\n{\\line}/))
   end
 
-  def test_converts_table
+  def test_converts_empty_table_without_failure
+    assert_nothing_raised do
+      RTF::Converters::HTML.new("<table><tr></tr></table>").to_rtf
+    end
+  end
+
+  def test_converts_html_file_with_table
     response = RTF::Converters::HTML.new(setup).to_rtf
     assert(response.match(/\n\\trowd\\tgraph100\n\\cellx300\n\\cellx600\n\\cellx900\n\\pard\\intbl\nMe\n\\cell\n\\pard\\intbl\nor\n\\cell\n\\pard\\intbl\nme\n\\cell\n\\row\n\\trowd\\tgraph100\n\\cellx300\n\\cellx600\n\\cellx900\n\\pard\\intbl\nHi\n\\cell\n\\pard\\intbl\nHello\n\\cell\n\\pard\\intbl\n{\\b\nHI\n}\n\\cell\n\\lastrow\n\\row\n}/))
   end
