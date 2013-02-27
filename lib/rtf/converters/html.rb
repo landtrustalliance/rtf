@@ -110,8 +110,9 @@ module RTF::Converters
         when 'h1', 'h2', 'h3', 'h4'   then rtf.apply(Helpers.style(@node.name), &recurse); rtf.line_break
         when 'code'                   then rtf.font Helpers.font(:monospace), &recurse
         when 'table'                  then generate_table(rtf, @node)
+        when 'thead', 'tbody'         then recurse.call(rtf)
         when 'tr'                     then rtf.tr &recurse
-        when 'td'                     then rtf.td &recurse
+        when 'td','th'                then rtf.td &recurse
         when 'img'                    then rtf.image @node.attributes.fetch("src").value, &recurse
         else
           #puts "Ignoring #{@node.to_html}"
@@ -121,10 +122,26 @@ module RTF::Converters
       end
 
       def generate_table(rtf, node)
-        rows  = cells = 0
-        rows  = node.children.count if node.children
-        cells = node.children.max.children.select { |el| el.name == 'td' }.count if node.children.max
-        rtf.table rows, cells, &recurse
+        rtf.table count_rows(node), count_cells(node), &recurse
+      end
+
+      def count_rows(node)
+        return 0 if node.children.nil?
+        if node.children.map(&:name) == ['thead', 'tbody']
+          return node.children.map { |el| el.children.count }.inject(:+)
+        else
+          return node.children.count if node.children.first.name == 'tr'
+        end
+        count_rows(node.children.first)
+      end
+
+      def count_cells(node)
+        return 0 if node.children.nil?
+        if node.children.first.name.match(/^td$|^th$/)
+          node.children.select { |elem| elem.name.match(/^td$|^th$/) }.count
+        else
+          count_cells(node.children.first)
+        end
       end
 
       def recurse
