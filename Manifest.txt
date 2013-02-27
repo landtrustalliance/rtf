@@ -50,3 +50,4 @@ test/test_table_cell_node.rb
 test/test_table_node.rb
 test/test_table_row_node.rb
 test/text_node_test.rb
+test/converters/html_converter.rb
