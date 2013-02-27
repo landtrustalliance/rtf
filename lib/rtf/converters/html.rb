@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'tidy'
+require 'pry'
 
 module RTF::Converters
   class HTML
@@ -91,22 +92,27 @@ module RTF::Converters
       end
 
       def to_rtf(rtf)
+        return if @node.name != 'td' && rtf.class == RTF::TableRowNode
         case @node.name
         when 'text'                   then rtf << @node.text.gsub(/\n+/, ' ').strip
         when 'br'                     then rtf.line_break
-        when 'b', 'strong'            then rtf.bold &recurse
-        when 'i', 'em', 'cite'        then rtf.italic &recurse
-        when 'u'                      then rtf.underline &recurse
-        when 'blockquote', 'p', 'div' then rtf.paragraph &recurse
+        when 'b', 'strong'            then rtf.bold                &recurse
+        when 'i', 'em', 'cite'        then rtf.italic              &recurse
+        when 'u'                      then rtf.underline           &recurse
+        when 'blockquote', 'p', 'div' then rtf.paragraph           &recurse
         when 'span'                   then recurse.call(rtf)
-        when 'sup'                    then rtf.subscript &recurse
-        when 'sub'                    then rtf.superscript &recurse
-        when 'ul'                     then rtf.list :bullets, &recurse
-        when 'ol'                     then rtf.list :decimal, &recurse
+        when 'sup'                    then rtf.subscript           &recurse
+        when 'sub'                    then rtf.superscript         &recurse
+        when 'ul'                     then rtf.list :bullets,      &recurse
+        when 'ol'                     then rtf.list :decimal,      &recurse
         when 'li'                     then rtf.item &recurse
-        when 'a'                      then rtf.link @node[:href], &recurse
+        when 'a'                      then rtf.link @node[:href],  &recurse
         when 'h1', 'h2', 'h3', 'h4'   then rtf.apply(Helpers.style(@node.name), &recurse); rtf.line_break
         when 'code'                   then rtf.font Helpers.font(:monospace), &recurse
+        when 'table'                  then rtf.table @node.children.count, @node.children.max.children.select {|x| x.name == 'td' }.count, &recurse
+        when 'tr'                     then rtf.tr &recurse
+        when 'td'                     then rtf.td &recurse
+        when 'img'                    then rtf.image @node.attributes.fetch("src").value, &recurse
         else
           #puts "Ignoring #{@node.to_html}"
         end
