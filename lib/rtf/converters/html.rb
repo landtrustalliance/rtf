@@ -96,9 +96,9 @@ module RTF::Converters
         case @node.name
         when 'text'                   then rtf << @node.text.gsub(/\n+/, ' ').strip
         when 'br'                     then rtf.line_break
-        when 'b', 'strong'            then rtf.bold                &recurse
-        when 'i', 'em', 'cite'        then rtf.italic              &recurse
-        when 'u'                      then rtf.underline           &recurse
+        when 'b', 'strong'            then rtf.bold           &recurse
+        when 'i', 'em', 'cite'        then rtf.italic         &recurse
+        when 'u'                      then rtf.underline      &recurse
         when 'blockquote', 'p', 'div'
           if inside_table?(@node)
             recurse.call(rtf)
@@ -106,12 +106,12 @@ module RTF::Converters
             rtf.paragraph &recurse
           end
         when 'span'                   then recurse.call(rtf)
-        when 'sup'                    then rtf.subscript           &recurse
-        when 'sub'                    then rtf.superscript         &recurse
-        when 'ul'                     then rtf.list :bullets,      &recurse
-        when 'ol'                     then rtf.list :decimal,      &recurse
-        when 'li'                     then rtf.item &recurse
-        when 'a'                      then rtf.link @node[:href],  &recurse
+        when 'sup'                    then rtf.subscript      &recurse
+        when 'sub'                    then rtf.superscript    &recurse
+        when 'ul'                     then rtf.list :bullets, &recurse
+        when 'ol'                     then rtf.list :decimal, &recurse
+        when 'li'                     then rtf.item           &recurse
+        when 'a'                      then rtf.link @node[:href], &recurse
         when 'h1', 'h2', 'h3', 'h4'   then rtf.apply(Helpers.style(@node.name), &recurse); rtf.line_break; rtf.paragraph
         when 'code'                   then rtf.font Helpers.font(:monospace), &recurse
         when 'table'                  then generate_table(rtf, @node)
