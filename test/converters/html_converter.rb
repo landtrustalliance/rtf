@@ -94,7 +94,7 @@ class HTMLConverterTest < Test::Unit::TestCase
 
   def test_converts_html_file_with_table
     response = RTF::Converters::HTML.new(setup).to_rtf
-    assert(response.match(/\n\\trowd\\tgraph100\n\\cellx300\n\\cellx600\n\\cellx900\n\\pard\\intbl\nMe\n\\cell\n\\pard\\intbl\nor\n\\cell\n\\pard\\intbl\nme\n\\cell\n\\row\n\\trowd\\tgraph100\n\\cellx300\n\\cellx600\n\\cellx900\n\\pard\\intbl\nHi\n\\cell\n\\pard\\intbl\nHello\n\\cell\n\\pard\\intbl\n{\\b\nHI\n}\n\\cell\n\\lastrow\n\\row\n}/))
+    assert_match(/\n\\trowd\\tgraph100\n\\cellx300\n\\cellx600\n\\cellx900\n\\pard\\intbl\nMe\n\\cell\n\\pard\\intbl\nor\n\\cell\n\\pard\\intbl\nme\n\\cell\n\\row\n\\trowd\\tgraph100\n\\cellx300\n\\cellx600\n\\cellx900\n\\pard\\intbl\nHi\n\\cell\n\\pard\\intbl\nHello\n\\cell\n\\pard\\intbl\n{\\b\nHI\n}\n\\cell\n\\lastrow\n\\row\n}/, response)
   end
 
   def test_converts_multi_row_table_with_thead_and_no_tbody
@@ -104,26 +104,46 @@ class HTMLConverterTest < Test::Unit::TestCase
           <thead>
             <tr>
               <th>Activity</th>
-              <th>Beginning</th>
-              <th>Ending</th>
             </tr>
           </thead>
           <tr>
-            <td></td>
-            <td>February 2013</td>
             <td>February 2013</td>
           </tr>
           <tr>
             <td>Awesome Sauce</td>
-            <td>February 2013</td>
-            <td>February 2013</td>
-          </tr>
-          <tr>
-            <td>Holla no org name</td>
-            <td>February 2013</td>
-            <td>February 2013</td>
           </tr>
         </table>').to_rtf
     end
   end
+
+  def test_table_with_html_in_cells
+    assert_nothing_raised do
+      RTF::Converters::HTML.new('
+          <table class="table table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Publication Name</th>
+                <th>Publication Date</th>
+              </tr>
+            </thead>
+            <tr>
+              <td>1</td>
+              <td><p>lorem em ipsum</p></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><p>lorem em ipsum</p></td>
+              <td>12/11/10</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><p>lorem em ipsum</p></td>
+              <td>Feb 10th 2012</td>
+            </tr>
+        </table>').to_rtf
+    end
+  end
+
 end

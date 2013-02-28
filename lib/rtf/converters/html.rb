@@ -99,7 +99,12 @@ module RTF::Converters
         when 'b', 'strong'            then rtf.bold                &recurse
         when 'i', 'em', 'cite'        then rtf.italic              &recurse
         when 'u'                      then rtf.underline           &recurse
-        when 'blockquote', 'p', 'div' then rtf.paragraph           &recurse
+        when 'blockquote', 'p', 'div'
+          if inside_table?(@node)
+            recurse.call(rtf)
+          else
+            rtf.paragraph &recurse
+          end
         when 'span'                   then recurse.call(rtf)
         when 'sup'                    then rtf.subscript           &recurse
         when 'sub'                    then rtf.superscript         &recurse
@@ -107,7 +112,7 @@ module RTF::Converters
         when 'ol'                     then rtf.list :decimal,      &recurse
         when 'li'                     then rtf.item &recurse
         when 'a'                      then rtf.link @node[:href],  &recurse
-        when 'h1', 'h2', 'h3', 'h4'   then rtf.apply(Helpers.style(@node.name), &recurse); rtf.line_break
+        when 'h1', 'h2', 'h3', 'h4'   then rtf.apply(Helpers.style(@node.name), &recurse); rtf.line_break; rtf.paragraph
         when 'code'                   then rtf.font Helpers.font(:monospace), &recurse
         when 'table'                  then generate_table(rtf, @node)
         when 'thead', 'tbody'         then recurse.call(rtf)
@@ -119,6 +124,12 @@ module RTF::Converters
         end
 
         return rtf
+      end
+
+      def inside_table?(node)
+        return false if node.parent.name == 'body'
+        return true  if node.parent.name == 'table'
+        inside_table?(node.parent)
       end
 
       def generate_table(rtf, node)
