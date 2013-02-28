@@ -92,7 +92,7 @@ module RTF::Converters
       end
 
       def to_rtf(rtf)
-        return if @node.name != 'td' && rtf.class == RTF::TableRowNode
+        return if !@node.name.match(/^td$|^th$/) && rtf.class == RTF::TableRowNode
         case @node.name
         when 'text'                   then rtf << @node.text.gsub(/\n+/, ' ').strip
         when 'br'                     then rtf.line_break
@@ -126,17 +126,14 @@ module RTF::Converters
       end
 
       def count_rows(node)
-        return 0 if node.children.nil?
-        if node.children.map(&:name) == ['thead', 'tbody']
-          return node.children.map { |el| el.children.count }.inject(:+)
-        else
-          return node.children.count if node.children.first.name == 'tr'
-        end
-        count_rows(node.children.first)
+        return 0 if node.children.nil? || node.children.empty?
+        node.children.map { |elem| elem.name.match(/thead|tbody/) ?
+                                   elem.children.select { |el| el.name == 'tr' } :
+                                   elem }.flatten.count
       end
 
       def count_cells(node)
-        return 0 if node.children.nil?
+        return 0 if node.children.nil? || node.children.empty?
         if node.children.first.name.match(/^td$|^th$/)
           node.children.select { |elem| elem.name.match(/^td$|^th$/) }.count
         else
