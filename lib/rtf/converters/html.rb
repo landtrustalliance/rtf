@@ -1,6 +1,5 @@
 require 'nokogiri'
 require 'tidy'
-require 'pry'
 
 module RTF::Converters
   class HTML
