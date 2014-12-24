@@ -22,12 +22,10 @@ h=Hoe.spec 'clbustos-rtf' do
   self.extra_dev_deps << ["hoe",">=0"] 
 end
 begin
-  require 'rcov/rcovtask'
-  Rcov::RcovTask.new do |t|
-    t.libs << 'test'
-    t.test_files = FileList['test/**/*_test.rb']
-    t.verbose = true
-  end
+  require 'simplecov'
+  require 'test/unit'
+  SimpleCov.start
+  Test::Unit::AutoRunner.run(true, 'test')
 rescue LoadError
-  puts "RCov is not available. In order to run rcov, you must: sudo gem install rcov"
+  puts "SimpleCov is not available. In order to run SimpleCov, you must: gem install simplecov"
 end

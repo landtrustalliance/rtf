@@ -58,8 +58,7 @@ class ContainerNodeTest < Test::Unit::TestCase
       begin
          ContainerNode.new(nil).to_rtf
          flunk("Successfully called ContainerNode#to_rtf().")
-      rescue => error
-         #puts error
+      rescue
       end
    end
 end
