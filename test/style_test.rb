@@ -5,12 +5,12 @@ class StyleTest < Test::Unit::TestCase
    def test_basics
       style = Style.new
 
-      assert(style.is_character_style? == false)
-      assert(style.is_document_style? == false)
-      assert(style.is_paragraph_style? == false)
-      assert(style.is_table_style? == false)
+      assert_false style.is_character_style?
+      assert_false style.is_document_style?
+      assert_false style.is_paragraph_style?
+      assert_false style.is_table_style?
 
-      assert(style.prefix(nil, nil) == nil)
-      assert(style.suffix(nil, nil) == nil)
+      assert_nil style.prefix(nil, nil)
+      assert_nil style.suffix(nil, nil)
    end
 end

@@ -10,107 +10,77 @@ class ColourTest < Test::Unit::TestCase
       colours.push(Colour.new(0, 0, 100))
       colours.push(Colour.new(0, 0, 0))
 
-      assert(colours[0] == colours[0])
-      assert(!(colours[1] == colours[2]))
-      assert(colours[3] == Colour.new(0, 0, 100))
-      assert(!(colours[4] == 12345))
+      assert_equal colours[0], colours[0]
+      refute_equal colours[1], colours[2]
+      assert_equal Colour.new(0, 0, 100), colours[3]
+      refute_equal 12345, colours[4]
 
-      assert(colours[0].red == 255)
-      assert(colours[0].green == 255)
-      assert(colours[0].blue == 255)
+      assert_equal 255, colours[0].red
+      assert_equal 255, colours[0].green
+      assert_equal 255, colours[0].blue
 
-      assert(colours[1].red == 200)
-      assert(colours[1].green == 0)
-      assert(colours[1].blue == 0)
+      assert_equal 200, colours[1].red
+      assert_equal 0,   colours[1].green
+      assert_equal 0,   colours[1].blue
 
-      assert(colours[2].red == 0)
-      assert(colours[2].green == 150)
-      assert(colours[2].blue == 0)
+      assert_equal 0,   colours[2].red
+      assert_equal 150, colours[2].green
+      assert_equal 0,   colours[2].blue
 
-      assert(colours[3].red == 0)
-      assert(colours[3].green == 0)
-      assert(colours[3].blue == 100)
+      assert_equal 0,   colours[3].red
+      assert_equal 0,   colours[3].green
+      assert_equal 100, colours[3].blue
 
-      assert(colours[4].red == 0)
-      assert(colours[4].green == 0)
-      assert(colours[4].blue == 0)
+      assert_equal 0,   colours[4].red
+      assert_equal 0,   colours[4].green
+      assert_equal 0,   colours[4].blue
 
-      assert(colours[0].to_s(3) == '   Colour (255/255/255)')
-      assert(colours[1].to_s(6) == '      Colour (200/0/0)')
-      assert(colours[2].to_s(-20) == 'Colour (0/150/0)')
-      assert(colours[3].to_s == 'Colour (0/0/100)')
-      assert(colours[4].to_s == 'Colour (0/0/0)')
+      assert_equal '   Colour (255/255/255)', colours[0].to_s(3)
+      assert_equal '      Colour (200/0/0)', colours[1].to_s(6)
+      assert_equal 'Colour (0/150/0)', colours[2].to_s(-20)
+      assert_equal 'Colour (0/0/100)', colours[3].to_s
+      assert_equal 'Colour (0/0/0)', colours[4].to_s
 
-      assert(colours[0].to_rtf(2) == '  \red255\green255\blue255;')
-      assert(colours[1].to_rtf(4) == '    \red200\green0\blue0;')
-      assert(colours[2].to_rtf(-6) == '\red0\green150\blue0;')
-      assert(colours[3].to_rtf == '\red0\green0\blue100;')
-      assert(colours[4].to_rtf == '\red0\green0\blue0;')
+      assert_equal '  \red255\green255\blue255;', colours[0].to_rtf(2)
+      assert_equal '    \red200\green0\blue0;', colours[1].to_rtf(4)
+      assert_equal '\red0\green150\blue0;', colours[2].to_rtf(-6)
+      assert_equal '\red0\green0\blue100;', colours[3].to_rtf
+      assert_equal '\red0\green0\blue0;', colours[4].to_rtf
+   end
 
-      begin
+   def test_red_out_of_range_raises_exception
+      assert_raise RTFError do
          Colour.new(256, 0, 0)
-         flunk("Successfully created a colour with an invalid red setting.")
-      rescue RTFError
-      rescue Test::Unit::AssertionFailedError => error
-         raise error
-      rescue => error
-         flunk("Unexpected exception caught. Type: #{error.class.name}\n"\
-               "Message: #{error.message}")
       end
+   end
 
-      begin
+   def test_green_out_of_range_raises_exception
+      assert_raise RTFError do
          Colour.new(0, 1000, 0)
-         flunk("Successfully created a colour with an invalid green setting.")
-      rescue RTFError
-      rescue Test::Unit::AssertionFailedError => error
-         raise error
-      rescue => error
-         flunk("Unexpected exception caught. Type: #{error.class.name}\n"\
-               "Message: #{error.message}")
       end
+   end
 
-      begin
+   def test_blue_out_of_range_raises_exception
+      assert_raise RTFError do
          Colour.new(0, 0, -300)
-         flunk("Successfully created a colour with an invalid blue setting.")
-      rescue RTFError
-      rescue Test::Unit::AssertionFailedError => error
-         raise error
-      rescue => error
-         flunk("Unexpected exception caught. Type: #{error.class.name}\n"\
-               "Message: #{error.message}")
       end
+   end
 
-      begin
+   def test_red_invalid_type_raises_exception
+      assert_raise RTFError do
          Colour.new('La la la', 0, 0)
-         flunk("Successfully created a colour with an invalid red type.")
-      rescue RTFError
-      rescue Test::Unit::AssertionFailedError => error
-         raise error
-      rescue => error
-         flunk("Unexpected exception caught. Type: #{error.class.name}\n"\
-               "Message: #{error.message}")
       end
+   end
 
-      begin
+   def test_green_invalid_type_raises_exception
+      assert_raise RTFError do
          Colour.new(0, {}, 0)
-         flunk("Successfully created a colour with an invalid green type.")
-      rescue RTFError
-      rescue Test::Unit::AssertionFailedError => error
-         raise error
-      rescue => error
-         flunk("Unexpected exception caught. Type: #{error.class.name}\n"\
-               "Message: #{error.message}")
       end
+   end
 
-      begin
+   def test_blue_invalid_type_raises_exception
+      assert_raise RTFError do
          Colour.new(0, 0, [])
-         flunk("Successfully created a colour with an invalid blue type.")
-      rescue RTFError
-      rescue Test::Unit::AssertionFailedError => error
-         raise error
-      rescue => error
-         flunk("Unexpected exception caught. Type: #{error.class.name}\n"\
-               "Message: #{error.message}")
       end
    end
 end

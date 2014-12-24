@@ -12,19 +12,17 @@ class FooterNodeTest < Test::Unit::TestCase
       footers << FooterNode.new(@document)
       footers << FooterNode.new(@document, FooterNode::LEFT_PAGE)
 
-      assert(footers[0].parent == @document)
-      assert(footers[1].parent == @document)
+      assert_equal @document, footers[0].parent
+      assert_equal @document, footers[1].parent
 
-      assert(footers[0].type == FooterNode::UNIVERSAL)
-      assert(footers[1].type == FooterNode::LEFT_PAGE)
+      assert_equal FooterNode::UNIVERSAL, footers[0].type
+      assert_equal FooterNode::LEFT_PAGE, footers[1].type
    end
 
-   def test_exceptions
+   def test_adding_footnote_to_footer_raises_exception
       footer = FooterNode.new(@document)
-      begin
+      assert_raise RTFError do
          footer.footnote("La la la.")
-         flunk("Successfully added a footnote to a footer.")
-      rescue
       end
    end
 end

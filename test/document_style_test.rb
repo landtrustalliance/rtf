@@ -5,47 +5,48 @@ class DocumentStyleTest < Test::Unit::TestCase
    def test_basics
       style = DocumentStyle.new
 
-      assert(style.is_character_style? == false)
-      assert(style.is_document_style? == true)
-      assert(style.is_paragraph_style? == false)
-      assert(style.is_table_style? == false)
+      assert_false style.is_character_style?
+      assert_true  style.is_document_style?
+      assert_false style.is_paragraph_style?
+      assert_false style.is_table_style?
 
-      assert(style.prefix(nil, nil) == '\paperw11907\paperh16840\margl1800'\
-                                       '\margr1800\margt1440\margb1440')
-      assert(style.suffix(nil, nil) == nil)
+      assert_equal '\paperw11907\paperh16840\margl1800'\
+                   '\margr1800\margt1440\margb1440',
+                   style.prefix(nil, nil)
+      assert_nil style.suffix(nil, nil)
 
-      assert(style.bottom_margin == DocumentStyle::DEFAULT_BOTTOM_MARGIN)
-      assert(style.gutter == nil)
-      assert(style.left_margin == DocumentStyle::DEFAULT_LEFT_MARGIN)
-      assert(style.orientation == DocumentStyle::PORTRAIT)
-      assert(style.paper == Paper::A4)
-      assert(style.right_margin == DocumentStyle::DEFAULT_RIGHT_MARGIN)
-      assert(style.top_margin == DocumentStyle::DEFAULT_TOP_MARGIN)
+      assert_equal DocumentStyle::DEFAULT_BOTTOM_MARGIN, style.bottom_margin
+      assert_nil   style.gutter
+      assert_equal DocumentStyle::DEFAULT_LEFT_MARGIN, style.left_margin
+      assert_equal DocumentStyle::PORTRAIT, style.orientation
+      assert_equal Paper::A4, style.paper
+      assert_equal DocumentStyle::DEFAULT_RIGHT_MARGIN, style.right_margin
+      assert_equal DocumentStyle::DEFAULT_TOP_MARGIN, style.top_margin
    end
 
   def test_mutators
      style = DocumentStyle.new
 
      style.bottom_margin = 200
-     assert(style.bottom_margin == 200)
+     assert_equal 200, style.bottom_margin
 
      style.gutter = 1000
-     assert(style.gutter == 1000)
+     assert_equal 1000, style.gutter
 
      style.left_margin = 34
-     assert(style.left_margin == 34)
+     assert_equal 34, style.left_margin
 
      style.orientation = DocumentStyle::LANDSCAPE
-     assert(style.orientation == DocumentStyle::LANDSCAPE)
+     assert_equal DocumentStyle::LANDSCAPE, style.orientation
 
      style.paper = Paper::LETTER
-     assert(style.paper == Paper::LETTER)
+     assert_equal Paper::LETTER, style.paper
 
      style.right_margin = 345
-     assert(style.right_margin == 345)
+     assert_equal 345, style.right_margin
 
      style.top_margin = 819
-     assert(style.top_margin == 819)
+     assert_equal 819, style.top_margin
   end
 
   def test_prefix
@@ -57,9 +58,10 @@ class DocumentStyleTest < Test::Unit::TestCase
      style.orientation = DocumentStyle::LANDSCAPE
      style.paper       = Paper::A5
 
-     assert(style.prefix(nil, nil) == '\paperw11907\paperh8392\margl200'\
-                                      '\margr200\margt100\margb100\gutter300'\
-                                      '\sectd\lndscpsxn')
+     assert_equal '\paperw11907\paperh8392\margl200'\
+                  '\margr200\margt100\margb100\gutter300'\
+                  '\sectd\lndscpsxn',
+                  style.prefix(nil, nil)
   end
 
   def test_body_method
@@ -68,12 +70,12 @@ class DocumentStyleTest < Test::Unit::TestCase
      lr_margin = style.left_margin + style.right_margin
      tb_margin = style.top_margin + style.bottom_margin
 
-     assert(style.body_width == Paper::A4.width - lr_margin)
-     assert(style.body_height == Paper::A4.height - tb_margin)
+     assert_equal Paper::A4.width - lr_margin, style.body_width
+     assert_equal Paper::A4.height - tb_margin, style.body_height
 
      style.orientation = DocumentStyle::LANDSCAPE
 
-     assert(style.body_width == Paper::A4.height - lr_margin)
-     assert(style.body_height == Paper::A4.width - tb_margin)
+     assert_equal Paper::A4.height - lr_margin, style.body_width
+     assert_equal Paper::A4.width - tb_margin, style.body_height
   end
 end

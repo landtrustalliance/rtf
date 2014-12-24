@@ -5,70 +5,70 @@ class CharacterStyleTest < Test::Unit::TestCase
    def test_basics
       style = CharacterStyle.new
 
-      assert(style.is_character_style? == true)
-      assert(style.is_document_style? == false)
-      assert(style.is_paragraph_style? == false)
-      assert(style.is_table_style? == false)
+      assert_true  style.is_character_style?
+      assert_false style.is_document_style?
+      assert_false style.is_paragraph_style?
+      assert_false style.is_table_style?
 
-      assert(style.prefix(nil, nil) == nil)
-      assert(style.suffix(nil, nil) == nil)
+      assert_nil   style.prefix(nil, nil)
+      assert_nil   style.suffix(nil, nil)
 
-      assert(style.background == nil)
-      assert(style.bold == false)
-      assert(style.capitalise == false)
-      assert(style.flow == CharacterStyle::LEFT_TO_RIGHT)
-      assert(style.font == nil)
-      assert(style.font_size == nil)
-      assert(style.foreground == nil)
-      assert(style.hidden == false)
-      assert(style.italic == false)
-      assert(style.strike == false)
-      assert(style.subscript == false)
-      assert(style.superscript == false)
-      assert(style.underline == false)
+      assert_nil   style.background
+      assert_false style.bold
+      assert_false style.capitalise
+      assert_equal CharacterStyle::LEFT_TO_RIGHT, style.flow
+      assert_nil   style.font
+      assert_nil   style.font_size
+      assert_nil   style.foreground
+      assert_false style.hidden
+      assert_false style.italic
+      assert_false style.strike
+      assert_false style.subscript
+      assert_false style.superscript
+      assert_false style.underline
    end
 
   def test_mutators
      style = CharacterStyle.new
 
      style.background = Colour.new(100, 100, 100)
-     assert(style.background == Colour.new(100, 100, 100))
+     assert_equal Colour.new(100, 100, 100), style.background
 
      style.bold = true
-     assert(style.bold)
+     assert_true style.bold
 
      style.capitalise = true
-     assert(style.capitalize)
+     assert_true style.capitalize
 
      style.flow = CharacterStyle::RIGHT_TO_LEFT
-     assert(style.flow == CharacterStyle::RIGHT_TO_LEFT)
+     assert_equal CharacterStyle::RIGHT_TO_LEFT, style.flow
 
      style.font = Font.new(Font::ROMAN, 'Arial')
-     assert(style.font == Font.new(Font::ROMAN, 'Arial'))
+     assert_equal Font.new(Font::ROMAN, 'Arial'), style.font
 
      style.font_size = 38
-     assert(style.font_size == 38)
+     assert_equal 38, style.font_size
 
      style.foreground = Colour.new(250, 200, 150)
-     assert(style.foreground == Colour.new(250, 200, 150))
+     assert_equal Colour.new(250, 200, 150), style.foreground
 
      style.hidden = true
-     assert(style.hidden)
+     assert_true style.hidden
 
      style.italic = true
-     assert(style.italic)
+     assert_true style.italic
 
      style.strike = true
-     assert(style.strike)
+     assert_true style.strike
 
      style.subscript = true
-     assert(style.subscript)
+     assert_true style.subscript
 
      style.superscript = true
-     assert(style.superscript)
+     assert_true style.superscript
 
      style.underline = true
-     assert(style.underline)
+     assert_true style.underline
   end
 
   def test_prefix
@@ -77,60 +77,60 @@ class CharacterStyleTest < Test::Unit::TestCase
      style   = CharacterStyle.new
 
      style.background = colours[0]
-     assert(style.prefix(fonts, colours) == '\cb1')
+     assert_equal '\cb1', style.prefix(fonts, colours)
 
      style.background = nil
      style.bold       = true
-     assert(style.prefix(nil, nil) == '\b')
+     assert_equal '\b', style.prefix(nil, nil)
 
      style.bold       = false
      style.capitalise = true
-     assert(style.prefix(nil, nil) == '\caps')
+     assert_equal '\caps', style.prefix(nil, nil)
 
      style.capitalize = false
      style.flow       = CharacterStyle::RIGHT_TO_LEFT
-     assert(style.prefix(nil, nil) == '\rtlch')
+     assert_equal '\rtlch', style.prefix(nil, nil)
 
      style.flow = nil
      style.font = fonts[0]
-     assert(style.prefix(fonts, colours) == '\f0')
+     assert_equal '\f0', style.prefix(fonts, colours)
 
      style.font      = nil
      style.font_size = 40
-     assert(style.prefix(nil, nil) == '\fs40')
+     assert_equal '\fs40', style.prefix(nil, nil)
 
      style.font_size  = nil
      style.foreground = colours[0]
-     assert(style.prefix(fonts, colours) == '\cf1')
+     assert_equal '\cf1', style.prefix(fonts, colours)
 
      style.foreground = nil
      style.hidden     = true
-     assert(style.prefix(nil, nil) == '\v')
+     assert_equal '\v', style.prefix(nil, nil)
 
      style.hidden = false
      style.italic = true
-     assert(style.prefix(nil, nil) == '\i')
+     assert_equal '\i', style.prefix(nil, nil)
 
      style.italic = false
      style.strike = true
-     assert(style.prefix(nil, nil) == '\strike')
+     assert_equal '\strike', style.prefix(nil, nil)
 
      style.strike    = false
      style.subscript = true
-     assert(style.prefix(nil, nil) == '\sub')
+     assert_equal '\sub', style.prefix(nil, nil)
 
      style.subscript   = false
      style.superscript = true
-     assert(style.prefix(fonts, colours) == '\super')
+     assert_equal '\super', style.prefix(fonts, colours)
 
      style.superscript = false
      style.underline   = true
-     assert(style.prefix(fonts, colours) == '\ul')
+     assert_equal '\ul', style.prefix(fonts, colours)
 
      style.flow       = CharacterStyle::RIGHT_TO_LEFT
      style.background = colours[0]
      style.font_size  = 18
      style.subscript  = true
-     assert(style.prefix(fonts, colours) == '\ul\sub\cb1\fs18\rtlch')
+     assert_equal '\ul\sub\cb1\fs18\rtlch', style.prefix(fonts, colours)
   end
 end

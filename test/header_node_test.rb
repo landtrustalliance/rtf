@@ -12,19 +12,17 @@ class HeaderNodeTest < Test::Unit::TestCase
       headers << HeaderNode.new(@document)
       headers << HeaderNode.new(@document, HeaderNode::LEFT_PAGE)
 
-      assert(headers[0].parent == @document)
-      assert(headers[1].parent == @document)
+      assert_equal @document, headers[0].parent
+      assert_equal @document, headers[1].parent
 
-      assert(headers[0].type == HeaderNode::UNIVERSAL)
-      assert(headers[1].type == HeaderNode::LEFT_PAGE)
+      assert_equal HeaderNode::UNIVERSAL, headers[0].type
+      assert_equal HeaderNode::LEFT_PAGE, headers[1].type
    end
 
-   def test_exceptions
+   def test_adding_footnote_to_header_raises_exception
       headers = HeaderNode.new(@document)
-      begin
+      assert_raise RTFError do
          headers.footnote("La la la.")
-         flunk("Successfully added a footnote to a header.")
-      rescue
       end
    end
 end

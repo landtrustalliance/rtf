@@ -5,77 +5,77 @@ class ParagraphStyleTest < Test::Unit::TestCase
    def test_basics
       style = ParagraphStyle.new
 
-      assert(style.is_character_style? == false)
-      assert(style.is_document_style? == false)
-      assert(style.is_paragraph_style? == true)
-      assert(style.is_table_style? == false)
+      assert_false style.is_character_style?
+      assert_false style.is_document_style?
+      assert_true  style.is_paragraph_style?
+      assert_false style.is_table_style?
 
-      assert(style.prefix(nil, nil) == '\ql')
-      assert(style.suffix(nil, nil) == nil)
+      assert_equal '\ql', style.prefix(nil, nil)
+      assert_nil   style.suffix(nil, nil)
 
-      assert(style.first_line_indent == nil)
-      assert(style.flow == ParagraphStyle::LEFT_TO_RIGHT)
-      assert(style.justification == ParagraphStyle::LEFT_JUSTIFY)
-      assert(style.left_indent == nil)
-      assert(style.right_indent == nil)
-      assert(style.line_spacing == nil)
-      assert(style.space_after == nil)
-      assert(style.space_before == nil)
+      assert_nil   style.first_line_indent
+      assert_equal ParagraphStyle::LEFT_TO_RIGHT, style.flow
+      assert_equal ParagraphStyle::LEFT_JUSTIFY, style.justification
+      assert_nil   style.left_indent
+      assert_nil   style.right_indent
+      assert_nil   style.line_spacing
+      assert_nil   style.space_after
+      assert_nil   style.space_before
    end
 
   def test_mutators
      style = ParagraphStyle.new
 
      style.first_line_indent = 100
-     assert(style.first_line_indent == 100)
+     assert_equal 100, style.first_line_indent
 
      style.flow = ParagraphStyle::RIGHT_TO_LEFT
-     assert(style.flow == ParagraphStyle::RIGHT_TO_LEFT)
+     assert_equal ParagraphStyle::RIGHT_TO_LEFT, style.flow
 
      style.justification = ParagraphStyle::RIGHT_JUSTIFY
-     assert(style.justification == ParagraphStyle::RIGHT_JUSTIFY)
+     assert_equal ParagraphStyle::RIGHT_JUSTIFY, style.justification
 
      style.left_indent = 234
-     assert(style.left_indent == 234)
+     assert_equal 234, style.left_indent
 
      style.right_indent = 1020
-     assert(style.right_indent == 1020)
+     assert_equal 1020, style.right_indent
 
      style.line_spacing = 645
-     assert(style.line_spacing == 645)
+     assert_equal 645, style.line_spacing
 
      style.space_after = 25
-     assert(style.space_after == 25)
+     assert_equal 25, style.space_after
 
      style.space_before = 918
-     assert(style.space_before == 918)
+     assert_equal 918, style.space_before
   end
 
   def test_prefix
      style   = ParagraphStyle.new
 
      style.first_line_indent = 100
-     assert(style.prefix(nil, nil) == '\ql\fi100')
+     assert_equal '\ql\fi100', style.prefix(nil, nil)
 
      style.flow = ParagraphStyle::RIGHT_TO_LEFT
-     assert(style.prefix(nil, nil) == '\ql\fi100\rtlpar')
+     assert_equal '\ql\fi100\rtlpar', style.prefix(nil, nil)
 
      style.justification = ParagraphStyle::RIGHT_JUSTIFY
-     assert(style.prefix(nil, nil) == '\qr\fi100\rtlpar')
+     assert_equal '\qr\fi100\rtlpar', style.prefix(nil, nil)
 
      style.left_indent = 234
-     assert(style.prefix(nil, nil) == '\qr\li234\fi100\rtlpar')
+     assert_equal '\qr\li234\fi100\rtlpar', style.prefix(nil, nil)
 
      style.right_indent = 1020
-     assert(style.prefix(nil, nil) == '\qr\li234\ri1020\fi100\rtlpar')
+     assert_equal '\qr\li234\ri1020\fi100\rtlpar', style.prefix(nil, nil)
 
      style.line_spacing = 645
-     assert(style.prefix(nil, nil) == '\qr\li234\ri1020\fi100\sl645\rtlpar')
+     assert_equal '\qr\li234\ri1020\fi100\sl645\rtlpar', style.prefix(nil, nil)
 
      style.space_after = 25
-     assert(style.prefix(nil, nil) == '\qr\li234\ri1020\fi100\sa25\sl645\rtlpar')
+     assert_equal '\qr\li234\ri1020\fi100\sa25\sl645\rtlpar', style.prefix(nil, nil)
 
      style.space_before = 918
-     assert(style.prefix(nil, nil) == '\qr\li234\ri1020\fi100\sb918\sa25\sl645\rtlpar')
+     assert_equal '\qr\li234\ri1020\fi100\sb918\sa25\sl645\rtlpar', style.prefix(nil, nil)
   end
 end

@@ -28,79 +28,77 @@ class DocumentTest < Test::Unit::TestCase
       fonts << FontTable.new(@fonts[0])
       fonts << FontTable.new(@fonts[1])
 
-      assert(documents[0].character_set == Document::CS_ANSI)
-      assert(documents[1].character_set == Document::CS_ANSI)
-      assert(documents[2].character_set == Document::CS_MAC)
-      assert(documents[3].character_set == Document::CS_PC)
+      assert_equal Document::CS_ANSI, documents[0].character_set
+      assert_equal Document::CS_ANSI, documents[1].character_set
+      assert_equal Document::CS_MAC, documents[2].character_set
+      assert_equal Document::CS_PC, documents[3].character_set
 
-      assert(documents[0].fonts.size == 1)
-      assert(documents[1].fonts.size == 1)
-      assert(documents[2].fonts.size == 1)
-      assert(documents[3].fonts.size == 1)
+      assert_equal 1, documents[0].fonts.size
+      assert_equal 1, documents[1].fonts.size
+      assert_equal 1, documents[2].fonts.size
+      assert_equal 1, documents[3].fonts.size
 
-      assert(documents[0].fonts[0] == @fonts[0])
-      assert(documents[1].fonts[0] == @fonts[1])
-      assert(documents[2].fonts[0] == @fonts[0])
-      assert(documents[3].fonts[0] == @fonts[1])
+      assert_equal @fonts[0], documents[0].fonts[0]
+      assert_equal @fonts[1], documents[1].fonts[0]
+      assert_equal @fonts[0], documents[2].fonts[0]
+      assert_equal @fonts[1], documents[3].fonts[0]
 
-      assert(documents[0].colours.size == 0)
-      assert(documents[1].colours.size == 0)
-      assert(documents[2].colours.size == 0)
-      assert(documents[3].colours.size == 0)
+      assert_equal 0, documents[0].colours.size
+      assert_equal 0, documents[1].colours.size
+      assert_equal 0, documents[2].colours.size
+      assert_equal 0, documents[3].colours.size
 
-      assert(documents[0].language == Document::LC_ENGLISH_UK)
-      assert(documents[1].language == Document::LC_ENGLISH_UK)
-      assert(documents[2].language == Document::LC_ENGLISH_UK)
-      assert(documents[3].language == Document::LC_ENGLISH_US)
+      assert_equal Document::LC_ENGLISH_UK, documents[0].language
+      assert_equal Document::LC_ENGLISH_UK, documents[1].language
+      assert_equal Document::LC_ENGLISH_UK, documents[2].language
+      assert_equal Document::LC_ENGLISH_US, documents[3].language
 
-      assert(documents[0].style != nil)
-      assert(documents[1].style == style)
-      assert(documents[2].style != nil)
-      assert(documents[3].style == style)
+      assert_not_nil documents[0].style
+      assert_equal   style, documents[1].style
+      assert_not_nil documents[2].style
+      assert_equal   style, documents[3].style
 
-      assert(documents[0].body_width == Paper::A4.width - lr_margin)
-      assert(documents[0].body_height == Paper::A4.height - tb_margin)
-      assert(documents[0].default_font == @fonts[0])
-      assert(documents[0].paper == Paper::A4)
-      assert(documents[0].header == nil)
-      assert(documents[0].header(HeaderNode::UNIVERSAL) == nil)
-      assert(documents[0].header(HeaderNode::LEFT_PAGE) == nil)
-      assert(documents[0].header(HeaderNode::RIGHT_PAGE) == nil)
-      assert(documents[0].header(HeaderNode::FIRST_PAGE) == nil)
-      assert(documents[0].footer == nil)
-      assert(documents[0].footer(FooterNode::UNIVERSAL) == nil)
-      assert(documents[0].footer(FooterNode::LEFT_PAGE) == nil)
-      assert(documents[0].footer(FooterNode::RIGHT_PAGE) == nil)
-      assert(documents[0].footer(FooterNode::FIRST_PAGE) == nil)
+      assert_equal Paper::A4.width - lr_margin, documents[0].body_width
+      assert_equal Paper::A4.height - tb_margin, documents[0].body_height
+      assert_equal @fonts[0], documents[0].default_font
+      assert_equal Paper::A4, documents[0].paper
+      assert_nil   documents[0].header
+      assert_nil   documents[0].header(HeaderNode::UNIVERSAL)
+      assert_nil   documents[0].header(HeaderNode::LEFT_PAGE)
+      assert_nil   documents[0].header(HeaderNode::RIGHT_PAGE)
+      assert_nil   documents[0].header(HeaderNode::FIRST_PAGE)
+      assert_nil   documents[0].footer
+      assert_nil   documents[0].footer(FooterNode::UNIVERSAL)
+      assert_nil   documents[0].footer(FooterNode::LEFT_PAGE)
+      assert_nil   documents[0].footer(FooterNode::RIGHT_PAGE)
+      assert_nil   documents[0].footer(FooterNode::FIRST_PAGE)
    end
 
    def test_mutators
       document = Document.new(@fonts[0])
 
       document.default_font = @fonts[1]
-      assert(document.default_font == @fonts[1])
+      assert_equal @fonts[1], document.default_font
 
       document.character_set = Document::CS_PCA
-      assert(document.character_set == Document::CS_PCA)
+      assert_equal Document::CS_PCA, document.character_set
 
       document.language = Document::LC_CZECH
-      assert(document.language == Document::LC_CZECH)
+      assert_equal Document::LC_CZECH, document.language
    end
 
    def test_page_break
       document = Document.new(@fonts[0])
 
-      assert(document.page_break == nil)
-      assert(document.size == 1)
-      assert(document[0].prefix == '\page')
+      assert_nil   document.page_break
+      assert_equal 1, document.size
+      assert_equal '\page', document[0].prefix
    end
 
-   def test_exceptions
+   def test_changing_document_parent_raises_exception
       document = Document.new(@fonts[0])
-      begin
+      assert_raise RTFError do
          document.parent = document
-         flunk("Successfully change the parent of a Document object.")
-      rescue
       end
    end
 end
