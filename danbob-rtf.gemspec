@@ -10,4 +10,5 @@ Gem::Specification.new do |s|
   s.homepage = 'http://github.com/danbob/rtf'
   s.licenses = ["MIT"]
   s.authors = ["Peter Wood", "Claudio Bustos", "Marcello Barnaba", "Dan Arnfield"]
+  s.require_paths = ['lib']
 end

@@ -1,14 +1,11 @@
-$:.unshift(File.expand_path(File.dirname(__FILE__)+"/lib"))
-$:.unshift(File.expand_path(File.dirname(__FILE__)))
-require 'rake'
 require 'rubygems'
-require 'rtf'
+require 'bundler/setup'
 
-begin
+task :test do
   require 'simplecov'
   require 'test/unit'
   SimpleCov.start
   Test::Unit::AutoRunner.run(true, 'test')
-rescue LoadError
-  puts "SimpleCov is not available. In order to run SimpleCov, you must: gem install simplecov"
 end
+
+task default: [:test]
