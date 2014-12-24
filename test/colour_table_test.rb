@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__)+'/helper_tests')
+require File.expand_path(File.dirname(__FILE__)+'/test_helper')
 
 # ColourTable class unit test class.
 class ColourTableTest < Test::Unit::TestCase

@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__)+'/helper_tests')
+require File.expand_path(File.dirname(__FILE__)+'/test_helper')
 
 # FontTable class unit test class.
 class FontTableTest < Test::Unit::TestCase
