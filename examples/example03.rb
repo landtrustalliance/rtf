@@ -28,40 +28,40 @@ styles['CS_CODE'].font_size       = 16
 document = Document.new(fonts[0])
 
 document.paragraph(styles['PS_HEADING']) do |p1|
-   p1.apply(styles['CS_HEADING']) << 'Example Program'
+  p1.apply(styles['CS_HEADING']) << 'Example Program'
 end
 
 document.paragraph(styles['PS_NORMAL']) do |p1|
-   p1 << 'This document is automatically generated using the RTF Ruby '
-   p1 << 'library. This serves as an example of what can be achieved '
-   p1 << 'in document creation via the library. The source code that '
-   p1 << 'was used to generate it is listed below...'
+  p1 << 'This document is automatically generated using the RTF Ruby '
+  p1 << 'library. This serves as an example of what can be achieved '
+  p1 << 'in document creation via the library. The source code that '
+  p1 << 'was used to generate it is listed below...'
 end
 
 document.paragraph(styles['PS_INDENTED']) do |p1|
-   n = 1
-   p1.apply(styles['CS_CODE']) do |p2|
-      File.open('example03.rb') do |file|
-         file.each_line do |line|
-            p2.line_break
-            p2 << "#{n > 9 ? '' : ' '}#{n}   #{line.chomp}"
-            n += 1
-         end
+  n = 1
+  p1.apply(styles['CS_CODE']) do |p2|
+    File.open('example03.rb') do |file|
+      file.each_line do |line|
+        p2.line_break
+        p2 << "#{n > 9 ? '' : ' '}#{n}   #{line.chomp}"
+        n += 1
       end
-   end
+    end
+  end
 end
 
 document.paragraph(styles['PS_TITLE']) do |p1|
-   p1.italic do |p2|
-      p2.bold << 'Listing 1:'
-      p2 << ' Generator program code listing.'
-   end
+  p1.italic do |p2|
+    p2.bold << 'Listing 1:'
+    p2 << ' Generator program code listing.'
+  end
 end
 
 document.paragraph(styles['PS_NORMAL']) do |p1|
-   p1 << "This example shows the creation of a new document and the "
-   p1 << "of textual content to it. The example also provides examples "
-   p1 << "of using block scope to delimit style scope (lines 40-51)."
+  p1 << "This example shows the creation of a new document and the "
+  p1 << "of textual content to it. The example also provides examples "
+  p1 << "of using block scope to delimit style scope (lines 40-51)."
 end
 
 File.open('example03.rtf', 'w') {|file| file.write(document.to_rtf)}
