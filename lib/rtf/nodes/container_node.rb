@@ -3,9 +3,11 @@ module RTF
   # base class for more specific Node types.
   class ContainerNode < Node
     include Enumerable
+    extend Forwardable
 
     # Children elements of the node
     attr_accessor :children
+    def_delegators :@children, :first, :last, :each, :size, :[]
 
     # This is the constructor for the ContainerNode class.
     #
@@ -24,47 +26,11 @@ module RTF
     # ==== Parameters
     # node::  A reference to the Node object to be added.
     def store(node)
-      if !node.nil?
-        @children.push(node) if !@children.include?(Node)
-        node.parent = self if node.parent != self
-      end
+      return if node.nil?
+      
+      @children.push(node).uniq
+      node.parent = self
       node
-    end
-
-    # This method fetches the first node child for a ContainerNode object. If
-    # a container contains no children this method returns nil.
-    def first
-      @children[0]
-    end
-
-    # This method fetches the last node child for a ContainerNode object. If
-    # a container contains no children this method returns nil.
-    def last
-      @children.last
-    end
-
-    # This method provides for iteration over the contents of a ContainerNode
-    # object.
-    def each
-      @children.each {|child| yield child}
-    end
-
-    # This method returns a count of the number of children a ContainerNode
-    # object contains.
-    def size
-      @children.size
-    end
-
-    # This method overloads the array dereference operator to allow for
-    # access to the child elements of a ContainerNode object.
-    #
-    # ==== Parameters
-    # index::  The offset from the first child of the child object to be
-    #          returned. Negative index values work from the back of the
-    #          list of children. An invalid index will cause a nil value
-    #          to be returned.
-    def [](index)
-      @children[index]
     end
 
     # This method generates the RTF text for a ContainerNode object.
