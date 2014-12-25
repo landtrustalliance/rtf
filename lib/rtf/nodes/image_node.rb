@@ -79,44 +79,6 @@ module RTF
       @width, @height = get_dimensions
     end
 
-    def open_file(&block)
-      if block
-       File.open(@source, 'rb', &block)
-      else
-       File.open(@source, 'rb')
-      end
-    end
-
-    # This method attempts to determine the image type associated with a
-    # file, returning nil if it fails to make the determination.
-    def get_file_type
-      type = nil
-      read = []
-      open_file do |file|
-
-        # Check if the file is a JPEG.
-        read_source(file, read, 2)
-        if read[0,2] == [255, 216]
-          type = JPEG
-        else
-          # Check if it's a PNG.
-          read_source(file, read, 6)
-          if read[0,8] == [137, 80, 78, 71, 13, 10, 26, 10]
-            type = PNG
-          else
-            # Check if its a bitmap.
-            if read[0,2] == [66, 77]
-              size = to_integer(read[2,4])
-              type = BITMAP if size == File.size(@source)
-            end
-          end
-        end
-
-      end
-
-      type
-    end
-
     # This method generates the RTF for an ImageNode object.
     def to_rtf
       text  = StringIO.new
@@ -151,6 +113,42 @@ module RTF
       text << "\n}}"
 
       text.string
+    end
+
+    private
+
+    def open_file(&block)
+      File.open(@source, 'rb', &block)
+    end
+
+    # This method attempts to determine the image type associated with a
+    # file, returning nil if it fails to make the determination.
+    def get_file_type
+      type = nil
+      read = []
+      open_file do |file|
+
+        # Check if the file is a JPEG.
+        read_source(file, read, 2)
+        if read[0,2] == [255, 216]
+          type = JPEG
+        else
+          # Check if it's a PNG.
+          read_source(file, read, 6)
+          if read[0,8] == [137, 80, 78, 71, 13, 10, 26, 10]
+            type = PNG
+          else
+            # Check if its a bitmap.
+            if read[0,2] == [66, 77]
+              size = to_integer(read[2,4])
+              type = BITMAP if size == File.size(@source)
+            end
+          end
+        end
+
+      end
+
+      type
     end
 
     # This method is used to determine the underlying endianness of a
@@ -256,7 +254,5 @@ module RTF
 
       dimensions
     end
-
-    private :get_file_type, :to_integer, :get_endian, :get_dimensions, :open_file
   end
 end

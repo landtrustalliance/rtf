@@ -39,17 +39,13 @@ module RTF
     # RTFError::  Generated whenever an invalid style setting is specified.
     def initialize(row, width=DEFAULT_WIDTH, style=nil, top=nil, right=nil, bottom=nil, left=nil)
       super(row, nil)
-      if !style.nil? and !style.is_paragraph_style?
-        RTFError.fire("Non-paragraph style specified for TableCellNode constructor.")
-      end
-
       @width          = (width != nil && width > 0) ? width : DEFAULT_WIDTH
       @borders        = [(top != nil && top > 0) ? top : nil,
                          (right != nil && right > 0) ? right : nil,
                          (bottom != nil && bottom > 0) ? bottom : nil,
                          (left != nil && left > 0) ? left : nil]
       @shading_colour = nil
-      @style          = style
+      self.style      = style
     end
 
     # Attribute mutator.
