@@ -50,7 +50,7 @@ class ColourTableTest < Test::Unit::TestCase
 
     flags = [false, false, false, false, false]
     tables[2].each do |colour|
-      flags[@colours.index(colour)] = true if @colours.index(colour) != nil
+      flags[@colours.index(colour)] = !@colours.index(colour).nil?
     end
     assert_nil flags.index(false)
 

@@ -50,7 +50,7 @@ class FontTableTest < Test::Unit::TestCase
 
     flags = [false, false, false, false]
     tables[2].each do |font|
-      flags[@fonts.index(font)] = true if @fonts.index(font) != nil
+      flags[@fonts.index(font)] = !@fonts.index(font).nil?
     end
     assert_nil flags.index(false)
 
