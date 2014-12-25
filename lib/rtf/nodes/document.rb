@@ -1,3 +1,5 @@
+require 'stringio'
+
 module RTF
   # This class represents an RTF document. In actuality it is just a
   # specialised Node type that cannot be assigned a parent and that holds

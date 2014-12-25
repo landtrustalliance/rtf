@@ -5,30 +5,30 @@ module RTF
   # document level.
   class DocumentStyle < Style
     # Definition for a document orientation setting.
-    PORTRAIT                                   = :portrait
+    PORTRAIT = :portrait
 
     # Definition for a document orientation setting.
-    LANDSCAPE                                  = :landscape
+    LANDSCAPE = :landscape
 
     # Definition for a default margin setting.
-    DEFAULT_LEFT_MARGIN                        = 1800
+    DEFAULT_LEFT_MARGIN = 1800
 
     # Definition for a default margin setting.
-    DEFAULT_RIGHT_MARGIN                       = 1800
+    DEFAULT_RIGHT_MARGIN = 1800
 
     # Definition for a default margin setting.
-    DEFAULT_TOP_MARGIN                         = 1440
+    DEFAULT_TOP_MARGIN = 1440
 
     # Definition for a default margin setting.
-    DEFAULT_BOTTOM_MARGIN                      = 1440
+    DEFAULT_BOTTOM_MARGIN = 1440
 
     # Attribute accessor.
     attr_reader :paper, :left_margin, :right_margin, :top_margin,
-            :bottom_margin, :gutter, :orientation
+                :bottom_margin, :gutter, :orientation
 
     # Attribute mutator.
     attr_writer :paper, :left_margin, :right_margin, :top_margin,
-            :bottom_margin, :gutter, :orientation
+                :bottom_margin, :gutter, :orientation
 
     # This is a constructor for the DocumentStyle class. This creates a
     # document style with a default paper setting of A4 and portrait

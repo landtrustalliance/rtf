@@ -1,3 +1,5 @@
+require 'stringio'
+
 module RTF
   # This class represents a cell within an RTF table. The TableCellNode is a
   # specialised command node that is forbidden from creating tables or having
@@ -35,19 +37,17 @@ module RTF
     #
     # ==== Exceptions
     # RTFError::  Generated whenever an invalid style setting is specified.
-    def initialize(row, width=DEFAULT_WIDTH, style=nil, top=nil, right=nil,
-              bottom=nil, left=nil)
+    def initialize(row, width=DEFAULT_WIDTH, style=nil, top=nil, right=nil, bottom=nil, left=nil)
       super(row, nil)
       if !style.nil? and !style.is_paragraph_style?
-        RTFError.fire("Non-paragraph style specified for TableCellNode "\
-                  "constructor.")
+        RTFError.fire("Non-paragraph style specified for TableCellNode constructor.")
       end
 
       @width          = (width != nil && width > 0) ? width : DEFAULT_WIDTH
       @borders        = [(top != nil && top > 0) ? top : nil,
-                   (right != nil && right > 0) ? right : nil,
-                   (bottom != nil && bottom > 0) ? bottom : nil,
-                   (left != nil && left > 0) ? left : nil]
+                         (right != nil && right > 0) ? right : nil,
+                         (bottom != nil && bottom > 0) ? bottom : nil,
+                         (left != nil && left > 0) ? left : nil]
       @shading_colour = nil
       @style          = style
     end
@@ -63,8 +63,7 @@ module RTF
     # RTFError::  Generated whenever an invalid style setting is specified.
     def style=(style)
       if !style.nil? and !style.is_paragraph_style?
-        RTFError.fire("Non-paragraph style specified for TableCellNode "\
-                  "constructor.")
+        RTFError.fire("Non-paragraph style specified for TableCellNode constructor.")
       end
       @style = style
     end
@@ -185,8 +184,7 @@ module RTF
     # ==== Parameters
     # style::  The paragraph style, ignored
     def paragraph(style=nil)
-      RTFError.fire("TableCellNode#paragraph() called. Table cells cannot "\
-                "contain paragraphs.")
+      RTFError.fire("TableCellNode#paragraph() called. Table cells cannot contain paragraphs.")
     end
 
     # This method overloads the parent= method inherited from the Node class

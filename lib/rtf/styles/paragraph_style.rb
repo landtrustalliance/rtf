@@ -4,29 +4,29 @@ module RTF
   # This class represents a styling for a paragraph within an RTF document.
   class ParagraphStyle < Style
     # A definition for a paragraph justification setting.
-    LEFT_JUSTIFY                     = :ql
+    LEFT_JUSTIFY = :ql
 
     # A definition for a paragraph justification setting.
-    RIGHT_JUSTIFY                    = :qr
+    RIGHT_JUSTIFY = :qr
 
     # A definition for a paragraph justification setting.
-    CENTER_JUSTIFY                   = :qc
+    CENTER_JUSTIFY = :qc
 
     # A definition for a paragraph justification setting.
-    CENTRE_JUSTIFY                   = :qc
+    CENTRE_JUSTIFY = :qc
 
     # A definition for a paragraph justification setting.
-    FULL_JUSTIFY                     = :qj
+    FULL_JUSTIFY = :qj
 
     # Attribute accessor.
     attr_reader :justification, :left_indent, :right_indent,
-            :first_line_indent, :space_before, :space_after,
-            :line_spacing, :flow
+                :first_line_indent, :space_before, :space_after,
+                :line_spacing, :flow
 
     # Attribute mutator.
     attr_writer :justification, :left_indent, :right_indent,
-            :first_line_indent, :space_before, :space_after,
-            :line_spacing, :flow
+                :first_line_indent, :space_before, :space_after,
+                :line_spacing, :flow
 
     # This is a constructor for the ParagraphStyle class.
     #

@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require 'stringio'
 require 'rtf/font'
 require 'rtf/font_table'
@@ -36,5 +34,5 @@ module RTF
     def RTFError.fire(message=nil)
       raise RTFError.new(message)
     end
-  end # End of the RTFError class.
-end # End of the RTF module.
+  end
+end

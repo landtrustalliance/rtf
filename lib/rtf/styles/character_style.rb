@@ -5,13 +5,13 @@ module RTF
   class CharacterStyle < Style
     # Attribute accessor.
     attr_reader :bold, :italic, :underline, :superscript, :capitalise,
-            :strike, :subscript, :hidden, :foreground, :background,
-            :flow, :font, :font_size
+                :strike, :subscript, :hidden, :foreground, :background,
+                :flow, :font, :font_size
 
     # Attribute mutator.
     attr_writer :bold, :italic, :underline, :superscript, :capitalise,
-            :strike, :subscript, :hidden, :foreground, :background,
-            :flow, :font, :font_size
+                :strike, :subscript, :hidden, :foreground, :background,
+                :flow, :font, :font_size
 
     # This is the constructor for the CharacterStyle class.
     #

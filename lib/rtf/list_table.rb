@@ -28,9 +28,9 @@ module RTF
     end
 
     protected
-      def next_template_id
-        @templates.size + 1
-      end
-
+    
+    def next_template_id
+      @templates.size + 1
+    end
   end
 end

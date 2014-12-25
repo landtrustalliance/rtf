@@ -1,3 +1,5 @@
+require 'stringio'
+
 module RTF
   # This class represents a table node within an RTF document. Table nodes are
   # specialised container nodes that contain only TableRowNodes and have their

@@ -2,23 +2,22 @@ module RTF
   # This class represents a document header.
   class HeaderNode < CommandNode
     # A definition for a header type.
-    UNIVERSAL                                  = :header
+    UNIVERSAL = :header
 
     # A definition for a header type.
-    LEFT_PAGE                                  = :headerl
+    LEFT_PAGE = :headerl
 
     # A definition for a header type.
-    RIGHT_PAGE                                 = :headerr
+    RIGHT_PAGE = :headerr
 
     # A definition for a header type.
-    FIRST_PAGE                                 = :headerf
+    FIRST_PAGE = :headerf
 
     # Attribute accessor.
     attr_reader :type
 
     # Attribute mutator.
     attr_writer :type
-
 
     # This is the constructor for the HeaderNode class.
     #
@@ -43,5 +42,5 @@ module RTF
     def footnote(text)
       RTFError.fire("Footnotes are not permitted in page headers.")
     end
-  end # End of the HeaderNode class.
+  end
 end

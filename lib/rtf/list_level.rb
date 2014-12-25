@@ -89,6 +89,5 @@ module RTF
       # The actual spacing
       text << "\\fi-360\\li#{self.indent}\\lin#{self.indent}}\n"
     end
-
   end
 end

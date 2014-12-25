@@ -1,22 +1,24 @@
+require 'stringio'
+
 module RTF
   # This class represents an image within a RTF document. Currently only the
   # PNG, JPEG and Windows Bitmap formats are supported. Efforts are made to
   # identify the file type but these are not guaranteed to work.
   class ImageNode < Node
     # A definition for an image type constant.
-    PNG                                        = :pngblip
+    PNG = :pngblip
 
     # A definition for an image type constant.
-    JPEG                                       = :jpegblip
+    JPEG = :jpegblip
 
     # A definition for an image type constant.
-    BITMAP                                     = :dibitmap0
+    BITMAP = :dibitmap0
 
     # A definition for an architecture endian constant.
-    LITTLE_ENDIAN                              = :little
+    LITTLE_ENDIAN = :little
 
     # A definition for an architecture endian constant.
-    BIG_ENDIAN                                 = :big
+    BIG_ENDIAN = :big
 
     # Offsets for reading dimension data by filetype
     DIMENSIONS_OFFSET = {
@@ -32,7 +34,6 @@ module RTF
     # Attribute mutator.
     attr_writer :x_scaling, :y_scaling, :top_crop, :right_crop, :bottom_crop,
             :left_crop, :displayed_width, :displayed_height
-
 
     # This is the constructor for the ImageNode class.
     #
@@ -213,7 +214,6 @@ module RTF
         end
       end
     end
-
 
     # This method fetches details of the dimensions associated with an image.
     def get_dimensions

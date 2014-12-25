@@ -2,10 +2,10 @@ module RTF
   # This is a parent class that all style classes will derive from.
   class Style
     # A definition for a character flow setting.
-    LEFT_TO_RIGHT                              = :rtl
+    LEFT_TO_RIGHT = :rtl
 
     # A definition for a character flow setting.
-    RIGHT_TO_LEFT                              = :ltr
+    RIGHT_TO_LEFT = :ltr
 
     # This method retrieves the command prefix text associated with a Style
     # object. This method always returns nil and should be overridden by

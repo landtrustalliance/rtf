@@ -1,3 +1,5 @@
+require 'stringio'
+
 module RTF
   # This class represents a row within an RTF table. The TableRowNode is a
   # specialised container node that can hold only TableCellNodes and, once

@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require 'stringio'
 
 module RTF
@@ -7,24 +5,22 @@ module RTF
   class Font
     # A declaration for a font family. This family is used for monospaced
     # fonts (e.g. Courier New).
-    MODERN                        = :modern
+    MODERN = :modern
 
     # A declaration for a font family. This family is used for proportionally
     # spaced serif fonts (e.g. Arial, Times New Roman).
-    ROMAN                         = :roman
+    ROMAN = :roman
 
     # A declaration for a font family. This family is used for proportionally
     # spaced sans serif fonts (e.g. Tahoma, Lucida Sans).
-    SWISS                         = :swiss
+    SWISS = :swiss
 
     # A declaration for a font family. This family is used where none of the
     # other families apply.
-    NIL                           = 'nil'.intern
-
+    NIL = :nil
 
     # Attribute accessor.
     attr_reader :family, :name
-
 
     # This is the constructor for the Font class.
     #

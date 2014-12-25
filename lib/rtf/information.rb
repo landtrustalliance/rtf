@@ -1,7 +1,6 @@
-#!/usr/bin/env ruby
-
 require 'stringio'
 require 'date'
+
 module RTF
   # This class represents an information group for a RTF document.
   class Information
@@ -107,5 +106,5 @@ module RTF
 
       text.string
     end
-  end # End of the Information class.
-end # End of the RTF module.
+  end
+end

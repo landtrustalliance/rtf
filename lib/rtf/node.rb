@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'stringio'
 require 'rtf/nodes/node'
 require 'rtf/nodes/text_node'
 require 'rtf/nodes/container_node'

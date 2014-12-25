@@ -7,15 +7,15 @@ module RTF
   #
   class ListNode < CommandNode
     def initialize(parent)
-     prefix  = "\\"
+      prefix  = "\\"
 
-     suffix  = '\pard'
-     suffix << ListLevel::ResetTabs.map {|tw| "\\tx#{tw}"}.join
-     suffix << '\ql\qlnatural\pardirnatural\cf0 \\'
+      suffix  = '\pard'
+      suffix << ListLevel::ResetTabs.map {|tw| "\\tx#{tw}"}.join
+      suffix << '\ql\qlnatural\pardirnatural\cf0 \\'
 
-     super(parent, prefix, suffix, true, false)
+      super(parent, prefix, suffix, true, false)
 
-     @template = root.lists.new_template
+      @template = root.lists.new_template
     end
 
     # This method creates a new +ListLevelNode+ of the given kind and
@@ -24,7 +24,7 @@ module RTF
     # ==== Parameters
     # kind::  The kind of this list level, may be either :bullets or :decimal
     def list(kind)
-     self.store ListLevelNode.new(self, @template, kind)
+      self.store ListLevelNode.new(self, @template, kind)
     end
   end
 end

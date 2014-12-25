@@ -1,3 +1,5 @@
+require 'stringio'
+
 module RTF
   # This class represents a RTF command element within a document. This class
   # is concrete enough to be used on its own but will also be used as the
