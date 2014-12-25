@@ -126,7 +126,18 @@ class ImageNodeTest < Test::Unit::TestCase
 
   def test_unsupported_file_exception
     assert_raise RTFError do
-      ImageNode.new(@document, 'ImageNodeTest.rb', 1)
+      ImageNode.new(@document, __FILE__, 1)
     end
+  end
+
+  def test_unreadable_file_exception
+    file = fixture_file_path("bitmap1.bmp")
+    File.chmod(0000, file)
+
+    assert_raise RTFError do
+      ImageNode.new(@document, file, 1)
+    end
+
+    File.chmod(0644, file)
   end
 end

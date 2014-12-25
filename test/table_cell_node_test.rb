@@ -57,21 +57,27 @@ class TableCellNodeTest < Test::Unit::TestCase
     assert_equal [5, 10, 15, 20], cells[2].border_widths
   end
 
-  def test_calling_paragraph_on_table_cell_node_raises_exception
+  def test_calling_paragraph_raises_exception
     assert_raise RTFError do
       @row[0].paragraph
     end
   end
 
-  def test_calling_parent_on_table_cell_node_raises_exception
+  def test_calling_parent_raises_exception
     assert_raise RTFError do
       @row[0].parent = nil
     end
   end
 
-  def test_calling_table_on_table_cell_node_raises_exception
+  def test_calling_table_raises_exception
     assert_raise RTFError do
       @row[0].table(nil, nil)
+    end
+  end
+
+  def test_non_paragraph_style_raises_exception
+    assert_raise RTFError do
+      TableCellNode.new(@row, 100, DocumentStyle.new)
     end
   end
 
