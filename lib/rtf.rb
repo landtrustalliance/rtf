@@ -2,12 +2,17 @@
 
 require 'stringio'
 require 'rtf/font'
+require 'rtf/font_table'
 require 'rtf/colour'
+require 'rtf/colour_table'
 require 'rtf/style'
 require 'rtf/information'
 require 'rtf/paper'
 require 'rtf/node'
-require 'rtf/list'
+require 'rtf/list_table'
+require 'rtf/list_marker'
+require 'rtf/list_template'
+require 'rtf/list_level'
 
 # This module encapsulates all the classes and definitions relating to the RTF
 # library.
