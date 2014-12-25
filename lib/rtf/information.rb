@@ -55,9 +55,8 @@ module RTF
         @created = setting
       else
         datetime = Date._parse(setting.to_s).values_at(:year, :mon, :mday, :hour, :min, :sec, :zone, :wday)
-        if datetime == nil
-          RTFError.fire("Invalid document creation date/time information "\
-                    "specified.")
+        if datetime.compact.empty?
+          RTFError.fire("Invalid document creation date/time information specified.")
         end
         @created = Time.local(datetime[0], datetime[1], datetime[2],
                        datetime[3], datetime[4], datetime[5])

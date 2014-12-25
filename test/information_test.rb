@@ -131,6 +131,12 @@ class InformationTest < Test::Unit::TestCase
                  info[6].to_rtf
   end
 
+  def test_invalid_date_raises_exception
+    assert_raises RTFError do
+      Information.new(nil, nil, nil, nil, 'invalid date')
+    end
+  end
+
   def to_rtf(time)
     text = StringIO.new
     text << "{\\createim\\yr#{time.year}"
