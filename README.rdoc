@@ -1,4 +1,13 @@
 == Ruby Rich Text Format (RTF) Library
+
+=== Aside
+
+This library appears to have been abandoned; people pick it up, fix a bit that they need, and then move on. This is a brief attempt to combine a few of the more significant branches (thanks 8thlight, CoryFoy, and especially danbob who did a lot of work to refactor the application) and package them up in something that "works". My bar for "works" is not high.
+
+If you discover this branch, feel free to fork it; it's probably the most up-to-date. However, that doesn't mean that I am supporting this branch. That said, if you send me a pull request, I'll probably include it, although I won't look particularly hard at it.
+
+=== The text below is what appeared in the README's that I forked/pulled
+
 The RTF library provides a pure Ruby set of functionality that can be used to
 programmatically create RTF documents. The main aim in developing this library
 is to ease the complexity involved in assembling RTF documents although some

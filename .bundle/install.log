@@ -1,0 +1,10 @@
+# Logfile created on 2015-01-06 15:11:14 -0400 by logger.rb/44203
+I, [2015-01-06T15:11:14.537429 #12329]  INFO -- : 0:  rake (10.4.2) from /Users/paul/.rvm/gems/ruby-2.1.0/specifications/rake-10.4.2.gemspec
+I, [2015-01-06T15:11:14.544169 #12329]  INFO -- : 0:  danbob-rtf (0.5.0) from /web/lta/rtf/rtf.gemspec
+I, [2015-01-06T15:11:15.268908 #12329]  INFO -- : 0:  docile (1.1.5) from /Users/paul/.rvm/gems/ruby-2.1.0/specifications/docile-1.1.5.gemspec
+I, [2015-01-06T15:11:15.269262 #12329]  INFO -- : 0:  multi_json (1.10.1) from /Users/paul/.rvm/gems/ruby-2.1.0/specifications/multi_json-1.10.1.gemspec
+I, [2015-01-06T15:11:16.025735 #12329]  INFO -- : 0:  power_assert (0.2.2) from /Users/paul/.rvm/gems/ruby-2.1.0/specifications/power_assert-0.2.2.gemspec
+I, [2015-01-06T15:11:16.968721 #12329]  INFO -- : 0:  simplecov-html (0.8.0) from /Users/paul/.rvm/gems/ruby-2.1.0/specifications/simplecov-html-0.8.0.gemspec
+I, [2015-01-06T15:11:17.830015 #12329]  INFO -- : 0:  simplecov (0.9.1) from /Users/paul/.rvm/gems/ruby-2.1.0/specifications/simplecov-0.9.1.gemspec
+I, [2015-01-06T15:11:18.717742 #12329]  INFO -- : 0:  test-unit (3.0.9) from /Users/paul/.rvm/gems/ruby-2.1.0/specifications/test-unit-3.0.9.gemspec
+I, [2015-01-06T15:11:18.718038 #12329]  INFO -- : 0:  bundler (1.5.1) from /Users/paul/.rvm/gems/ruby-2.1.0@global/specifications/bundler-1.5.1.gemspec
