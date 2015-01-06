@@ -68,6 +68,12 @@ module RTF::Converters
           when :h4
             style.font_size = 22
             style.bold = true
+          when :h5
+            style.font_size = 16
+            style.bold = true
+          when :h6
+            style.font_size = 12
+            style.bold = true
           end
         end
       end
@@ -111,7 +117,7 @@ module RTF::Converters
         when 'ol'                     then rtf.list :decimal, &recurse
         when 'li'                     then rtf.item           &recurse
         when 'a'                      then rtf.link @node[:href], &recurse
-        when 'h1', 'h2', 'h3', 'h4'   then rtf.apply(Helpers.style(@node.name), &recurse); rtf.line_break; rtf.paragraph
+        when 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'   then rtf.apply(Helpers.style(@node.name), &recurse); rtf.line_break; rtf.paragraph
         when 'code'                   then rtf.font Helpers.font(:monospace), &recurse
         when 'table'                  then generate_table(rtf, @node)
         when 'thead', 'tbody'         then recurse.call(rtf)
