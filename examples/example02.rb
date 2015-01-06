@@ -7,8 +7,8 @@ require 'rtf'
 include RTF
 
 colours = [Colour.new(0, 0, 0),
-           Colour.new(255, 255, 255)]
-           
+        Colour.new(255, 255, 255)]
+        
 # Create the used styles.
 styles                           = {}
 styles['EMPHASISED']             = CharacterStyle.new
@@ -20,9 +20,9 @@ styles['NORMAL'].space_after     = 300
 document = Document.new(Font.new(Font::ROMAN, 'Arial'))
 
 document.paragraph(styles['NORMAL']) do |p|
-   p << 'This document is a simple programmatically generated file that is '
-   p << 'used to demonstrate table generation. A table containing 3 rows '
-   p << 'and three columns should be displayed below this text.'
+  p << 'This document is a simple programmatically generated file that is '
+  p << 'used to demonstrate table generation. A table containing 3 rows '
+  p << 'and three columns should be displayed below this text.'
 end
 
 table    = document.table(3, 3, 2000, 4000, 2000)
@@ -42,5 +42,5 @@ table[2][1] << 'Cell 2,1'
 table[2][2] << 'Cell 2,2'
 
 File.open('example02.rtf', 'w') do |file|
-   file.write(document.to_rtf)
+  file.write(document.to_rtf)
 end

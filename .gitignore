@@ -1,10 +1,5 @@
-doc/*
-*~
-pkg
 *.rtf
-*.sw?
-.DS_Store
+*.gem
 coverage
-pkg
-VERSION.yml
-clbustos-rtf.gemspec
+Gemfile.lock
+.ruby*
